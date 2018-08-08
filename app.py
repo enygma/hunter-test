@@ -4,6 +4,7 @@ from flask import request
 import bcrypt
 import json
 import random
+import six
 
 app = Flask(__name__)
 
@@ -133,6 +134,14 @@ def findUser(username):
             return u
 
 def secureCompare(input1, input2):
+    print 'compare: %s -> %s' % (input1, input2)
+
+    if not isinstance(input1, six.string_types):
+        return False
+
+    if not isinstance(input2, six.string_types):
+        return False
+
     bytes1 = bytearray(str(input1))
     bytes2 = bytearray(str(input2))
 
@@ -140,4 +149,4 @@ def secureCompare(input1, input2):
 
 # Run the application
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', debug=False)
