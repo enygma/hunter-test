@@ -92,6 +92,10 @@ def code():
     else:
         return render_template('code.html', success=success)
 
+# Run the application
+app.run(host='0.0.0.0')
+
+
 def readJson():
     with open('users.json') as json_file:
         data = json.load(json_file)
