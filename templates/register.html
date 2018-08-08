@@ -2,6 +2,14 @@
 
 {% block content %}
 
+{% if error %}
+<div class="alert alert-danger">{{ error }}</div>
+{% endif %}
+
+{% if success|length > 0 %}
+<div class="alert alert-success">{{ success }}</div>
+{% endif %}
+
 <h3>Register New User</h3>
 <form action="/user/register" method="POST">
     <div class="form-group">
@@ -12,7 +20,7 @@
         <label for="username">Password</label>
         <input type="password" name="password" id="password" class="form-control"/>
     </div>
-    <button type="submit" class="btn btn-submit">Register</button>
+    <button type="submit" class="btn btn-success">Register</button>
 </form>
 
 {% endblock %}

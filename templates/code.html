@@ -2,7 +2,7 @@
 
 {% block content %}
 <p>
-    Please login below with your username and password. Don't have a user yet? <a href="/user/register">Register now!</a>
+    Please enter the code you were previously provided to complete the login process.
 </p>
 
 {% if error %}
@@ -11,10 +11,9 @@
 
 {% if success|length > 0 %}
 <div class="alert alert-success">{{ success }}</div>
-<meta http-equiv="refresh" content="4;url=/user/code" />
 {% endif %}
 
-<form action="/user/login" method="POST" class="form-horizontal">
+<form action="/user/code" method="POST" class="form-horizontal">
     <div class="form-group">
         <label for="username" class="col-sm-2 control-label">Username</label>
         <div class="col-sm-5">
@@ -22,9 +21,9 @@
         </div>
     </div>
     <div class="form-group">
-        <label for="password" class="col-sm-2 control-label">Password</label>
+        <label for="code" class="col-sm-2 control-label">Code</label>
         <div class="col-sm-5">
-            <input type="password" name="password" id="password" class="form-control"/>
+            <input type="code" name="code" id="code" class="form-control"/>
         </div>
     </div>
     <div class="form-group">
