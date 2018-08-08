@@ -92,10 +92,7 @@ def code():
     else:
         return render_template('code.html', success=success)
 
-# Run the application
-app.run(host='0.0.0.0')
-
-
+## Helper functions
 def readJson():
     with open('users.json') as json_file:
         data = json.load(json_file)
@@ -140,3 +137,7 @@ def secureCompare(input1, input2):
     bytes2 = bytearray(str(input2))
 
     return len(bytes1) == len(bytes2)
+
+# Run the application
+if __name__ == "__main__":
+    app.run(host='0.0.0.0')
