@@ -137,8 +137,8 @@ def findUser(username):
             return u
 
 def secureCompare(input1, input2):
-    bytes1 = bytearray(str(input1))
-    bytes2 = bytearray(str(input2))
+    bytes1 = bytearray(str(input1), 'utf8')
+    bytes2 = bytearray(str(input2), 'utf8')
 
     return len(bytes1) == len(bytes2)
 
