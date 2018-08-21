@@ -85,6 +85,7 @@ def code():
 
         if (secureCompare(code, user['code']) == True):
             success = "Success! You're now logged in as " + username
+            updateUser(username, None, "None")
         else:
             error = 'Error with the code provided'
 
@@ -101,15 +102,17 @@ def readJson():
 
 def writeJson(data):
     with open('users.json', 'w') as f:
+        print(f)
         json.dump(data, f)
 
     return True
 
 def addUser(username, password):
     data = readJson()
+    pwd = bcrypt.hashpw(password.encode('utf8'), bcrypt.gensalt())
     newUser = {
         'username': username,
-        'password': bcrypt.hashpw(password.encode('utf8'), bcrypt.gensalt()),
+        'password': pwd.decode('utf-8'),
         'code': 'None'
     }
     data['users'].append(newUser)
@@ -134,14 +137,6 @@ def findUser(username):
             return u
 
 def secureCompare(input1, input2):
-    print 'compare: %s -> %s' % (input1, input2)
-
-    if not isinstance(input1, six.string_types):
-        return False
-
-    if not isinstance(input2, six.string_types):
-        return False
-
     bytes1 = bytearray(str(input1))
     bytes2 = bytearray(str(input2))
 
