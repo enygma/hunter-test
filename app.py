@@ -77,17 +77,21 @@ def code():
 
     if (request.method == 'POST'):
         username = request.form['username']
-        code = request.form['code']
-        user = findUser(username)
+        if (len(username) == 0):
+            error = 'Username is a required field'
 
+        code = request.form['code']
         if not code:
             code = None
 
-        if (secureCompare(code, user['code']) == True):
-            success = "Success! You're now logged in as " + username
-            updateUser(username, None, "None")
-        else:
-            error = 'Error with the code provided'
+        if (len(error) == 0):
+            user = findUser(username)
+
+            if (secureCompare(code, user['code']) == True):
+                success = "Success! You're now logged in as " + username
+                updateUser(username, None, "None")
+            else:
+                error = 'Error with the code provided'
 
     if (len(error) > 0):
         return render_template('code.html', error=error)
