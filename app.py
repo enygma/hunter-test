@@ -30,7 +30,7 @@ def login():
             error = 'User ' + username + ' not found'
 
         if bcrypt.checkpw(password.encode('utf8'), user['password'].encode('utf8')) == True:
-            code = random.randint(1000,9999)
+            code = random.randint(10000,99999)
 
             # Update the user record with the code
             updateUser(username, None, code)
@@ -89,7 +89,7 @@ def code():
 
             if (secureCompare(code, user['code']) == True):
                 success = "Success! You're now logged in as " + username
-                updateUser(username, None, "None")
+                updateUser(username, None, "")
             else:
                 error = 'Error with the code provided'
 
@@ -117,7 +117,7 @@ def addUser(username, password):
     newUser = {
         'username': username,
         'password': pwd.decode('utf-8'),
-        'code': 'None'
+        'code': ''
     }
     data['users'].append(newUser)
     return writeJson(data)
