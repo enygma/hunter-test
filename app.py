@@ -30,7 +30,7 @@ def login():
             error = 'User ' + username + ' not found'
 
         if bcrypt.checkpw(password.encode('utf8'), user['password'].encode('utf8')) == True:
-            code = random.randint(10000,99999)
+            code = random.randint(1000,9999)
 
             # Update the user record with the code
             updateUser(username, None, code)
@@ -81,7 +81,7 @@ def code():
             error = 'Username is a required field'
 
         code = request.form['code']
-        if not code:
+        if not code or code == 'None':
             code = None
 
         if (len(error) == 0):
@@ -89,7 +89,7 @@ def code():
 
             if (secureCompare(code, user['code']) == True):
                 success = "Success! You're now logged in as " + username
-                updateUser(username, None, "")
+                updateUser(username, None, "None")
             else:
                 error = 'Error with the code provided'
 
@@ -117,7 +117,7 @@ def addUser(username, password):
     newUser = {
         'username': username,
         'password': pwd.decode('utf-8'),
-        'code': ''
+        'code': 'None'
     }
     data['users'].append(newUser)
     return writeJson(data)
