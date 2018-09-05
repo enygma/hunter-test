@@ -17,6 +17,7 @@ def login():
     success = ''
     error = ''
     code = ''
+    username = ''
 
     if (request.method == 'POST'):
         username = request.form['username']
@@ -35,15 +36,14 @@ def login():
             # Update the user record with the code
             updateUser(username, None, code)
 
-            success = ('Login successful for user ' + username 
-                + '. To complete the login, use the code "%s" on the following page.') % code
+            success = 'Login successful!'
         else:
             error = 'Invalid password'
 
     if (len(error) > 0):
         return render_template('login.html', error=error)
     else:
-        return render_template('login.html', success=success)
+        return render_template('login.html', success=success, code=code, username=username)
 
 @app.route("/user/register", methods=['GET', 'POST'])
 def register():

@@ -10,8 +10,14 @@
 {% endif %}
 
 {% if success|length > 0 %}
-<div class="alert alert-success">{{ success }}</div>
-<meta http-equiv="refresh" content="4;url=/user/code" />
+<div class="alert alert-success">
+Login successful for user {{ username }}.
+<br/><br/>
+<b>Code:</b> <input type="text" size="5" id="code-value" value="{{ code }}"/>
+<a href="{{ code }}" data-clipboard-target="#code-value" class="copy-btn btn btn-success btn-sm" id="copy-code">Copy to clipboard and proceed</a>
+
+</div>
+<!-- <meta http-equiv="refresh" content="4;url=/user/code" /> -->
 {% endif %}
 
 <form action="/user/login" method="POST" class="form-horizontal">
@@ -37,5 +43,16 @@
     <div class="col-sm-2">&nbsp;</div>
     <div class="col-sm-5"><a href="/user/forgot">Forgot your password?</a></div>
 </div> -->
+
+<script>
+$(function() {
+    new ClipboardJS('.copy-btn');
+
+    $('#copy-code').on('click', function(e) {
+        e.preventDefault();
+        window.location = '/user/code';
+    });
+});
+</script>
 
 {% endblock %}
