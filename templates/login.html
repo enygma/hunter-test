@@ -2,7 +2,7 @@
 
 {% block content %}
 <p>
-    Please login below with your username and password. Don't have a user yet? <a href="/user/register">Register now!</a>
+    Please login below with your username and password.
 </p>
 
 {% if error %}
@@ -38,11 +38,10 @@ Login successful for user {{ username }}.
         <div class="col-sm-5"><button class="btn btn-success" type="submit">Login</button></div>
     </div>
 </form>
-<!-- 
 <div class="row">
     <div class="col-sm-2">&nbsp;</div>
-    <div class="col-sm-5"><a href="/user/forgot">Forgot your password?</a></div>
-</div> -->
+    <div class="col-sm-5">If you don't have a user yet, <a href="/user/register">register now</a>!</div>
+</div>
 
 <script>
 $(function() {
