@@ -144,7 +144,14 @@ def secureCompare(input1, input2):
     bytes1 = bytearray(str(input1), 'utf8')
     bytes2 = bytearray(str(input2), 'utf8')
 
-    return len(bytes1) == len(bytes2)
+    if len(bytes1) != len(bytes2):
+      return False
+
+    result = 0
+    for x, y in zip(bytes1, bytes2):
+        result |= x ^ y
+
+    return result == 0
 
 # Run the application
 if __name__ == "__main__":
